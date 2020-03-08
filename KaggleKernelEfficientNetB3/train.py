@@ -3,7 +3,7 @@ import os
 import time, gc
 import numpy as np
 import pandas as pd
-from math import ceil
+from math import floor
 import cv2
 import tensorflow as tf
 
@@ -99,12 +99,12 @@ class TrainDataGenerator(keras.utils.Sequence):
         self.y_indexed = self.Y.iloc[self.ids]
 
         # Prep Y per Label   
-        self.y_root = self.y_indexed.iloc[:,0:types['grapheme_root']]
-        self.y_vowel = self.y_indexed.iloc[:,types['grapheme_root']:types['grapheme_root']+types['vowel_diacritic']]
-        self.y_consonant = self.y_indexed.iloc[:,types['grapheme_root']+types['vowel_diacritic']:]
+        self.y_root = self.y_indexed.iloc[:,0:types['grapheme_root']].values
+        self.y_vowel = self.y_indexed.iloc[:,types['grapheme_root']:types['grapheme_root']+types['vowel_diacritic']].values
+        self.y_consonant = self.y_indexed.iloc[:,types['grapheme_root']+types['vowel_diacritic']:].values
     
     def __len__(self):
-        return int(ceil(len(self.ids) / self.batch_size))
+        return int(floor(len(self.ids) / self.batch_size))
 
     def __getitem__(self, index):
         indices = self.indices[index*self.batch_size:(index+1)*self.batch_size]
@@ -120,15 +120,17 @@ class TrainDataGenerator(keras.utils.Sequence):
         Y_vowel = np.empty((self.batch_size, 11), dtype = np.int16)
         Y_consonant = np.empty((self.batch_size, 7), dtype = np.int16)
 
+        # Get Images for Batch
         for i, index in enumerate(indices):
             ID = self.x_indexed[index]
             image = _read(self.img_dir+ID+".png")
             
             X[i,] = image
-            
-            Y_root[i,] = self.y_root.iloc[index].values
-            Y_vowel[i,] = self.y_vowel.iloc[index].values
-            Y_consonant[i,] = self.y_consonant.iloc[index].values    
+        
+        # Get Labels for Batch
+        Y_root = self.y_root[indices]
+        Y_vowel = self.y_vowel[indices]
+        Y_consonant = self.y_consonant[indices]    
        
         return X, Y_root, Y_vowel, Y_consonant 
 
