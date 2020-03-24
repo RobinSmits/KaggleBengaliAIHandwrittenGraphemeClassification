@@ -5,6 +5,8 @@ In this repository you can find some of the code I use for the Kaggle Bengali.AI
 ## Kernel
 In the folder 'KaggleKernelEfficientNetB3' you can find the part of the code I used to train the models used in my inference [kernel](https://www.kaggle.com/rsmits/keras-efficientnet-b3-training-inference) as posted on Kaggle.
 
+The model scored 0.9703 on the Public Board and 0.9182 on the Private Board
+
 To be able to train the model you need to first download the dataset as available for the [Kaggle competition](https://www.kaggle.com/c/bengaliai-cv19).
 
 The model consists of an EfficientNet B3 pre-trained (on Imagenet..) model with a generalized mean pool and custom head layer.
@@ -22,12 +24,16 @@ I've trained the model for 80 epochs and picked some model weight files todo an 
 I first tested the training part by using 5/6th of the training data for training and 1/6th for validation. Based on the validation and some leaderboard submissions I found that the highest scoring epochs were between epoch 60 - 70. In the final training (as is used in this code) I use a different distribution of the training data for every epoch. The downside of this is that validation doesn't tell you everything anymore. The major benefit is however that it increases the score about 0.005 to 0.008 compared to the use of the fixed training set. This way it get close to what a Cross Validation ensemble would do...just without the training needed for that.
 
 The model weight files as used in the inference kernel are available in folder 'KaggleKernelEfficientNetB3\model_weights'. It contains the following 4 files (for each file mentioned the LB score when used as a single file to generate the submission):
-- Train1_model_59.h5     LB 0.9681
-- Train1_model_64.h5     LB 0.9679
-- Train1_model_66.h5     LB 0.9685
-- Train1_model_68.h5     LB 0.9691
+- Train1_model_57.h5     Public LB ?
+- Train1_model_59.h5     Public LB 0.9681
+- Train1_model_64.h5     Public LB 0.9679
+- Train1_model_66.h5     Public LB 0.9685
+- Train1_model_68.h5     Public LB 0.9691
+- Train1_model_70.h5     Public LB ?
 
 To start training the model you need to use the train.py file and at least verify/modify the following values:
 - DATA_DIR      (this should be the directory with the Bengali.AI dataset)
 - TRAIN_DIR     (this should be the directory where you want to store the generated training images) 
 - GENERATE_IMAGES   (whether or not the training images must be pre-generated..should be done initially)
+
+To run the inference on the models you can use the Jupyter Notebook 'keras-efficientnet-b3-training-inference.ipynb'. Note that you do need to modify some paths to the model weight files.
