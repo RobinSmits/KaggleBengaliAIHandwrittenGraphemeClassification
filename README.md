@@ -23,13 +23,13 @@ I've trained the model for 80 epochs and picked some model weight files todo an 
 
 I first tested the training part by using 5/6th of the training data for training and 1/6th for validation. Based on the validation and some leaderboard submissions I found that the highest scoring epochs were between epoch 60 - 70. In the final training (as is used in this code) I use a different distribution of the training data for every epoch. The downside of this is that validation doesn't tell you everything anymore. The major benefit is however that it increases the score about 0.005 to 0.008 compared to the use of the fixed training set. This way it get close to what a Cross Validation ensemble would do...just without the training needed for that.
 
-The model weight files as used in the inference kernel are available in folder 'KaggleKernelEfficientNetB3\model_weights'. It contains the following 4 files (for each file mentioned the LB score when used as a single file to generate the submission):
-- Train1_model_57.h5     Public LB ?
-- Train1_model_59.h5     Public LB 0.9681
-- Train1_model_64.h5     Public LB 0.9679
-- Train1_model_66.h5     Public LB 0.9685
-- Train1_model_68.h5     Public LB 0.9691
-- Train1_model_70.h5     Public LB ?
+The model weight files as used in the inference kernel are available in folder 'KaggleKernelEfficientNetB3\model_weights'. It contains the following 6 files (for each file mentioned the LB score when used as a single file to generate the submission):
+- Train1_model_57.h5     Public LB: 0.9668  -  Private LB: 0.9132
+- Train1_model_59.h5     Public LB: 0.9681  -  Private LB: 0.9151
+- Train1_model_64.h5     Public LB: 0.9679  -  Private LB: 0.9167
+- Train1_model_66.h5     Public LB: 0.9685  -  Private LB: 0.9157
+- Train1_model_68.h5     Public LB: 0.9691  -  Private LB: 0.9167
+- Train1_model_70.h5     Public LB: 0.9700  -  Private LB: 0.9174
 
 To start training the model you need to use the train.py file and at least verify/modify the following values:
 - DATA_DIR      (this should be the directory with the Bengali.AI dataset)
