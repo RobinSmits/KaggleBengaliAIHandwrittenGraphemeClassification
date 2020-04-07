@@ -37,3 +37,12 @@ To start training the model you need to use the train.py file and at least verif
 - GENERATE_IMAGES   (whether or not the training images must be pre-generated..should be done initially)
 
 To run the inference on the models you can use the Jupyter Notebook 'keras-efficientnet-b3-training-inference.ipynb'. Note that you do need to modify some paths to the model weight files.
+
+## Competition Final Submission
+In the folder 'KaggleFinalSubmission' you can find the part of the code I used together with my Kaggle team to train the models used our final submission(s). In the final submissions we also used some SE-ResNeXt models in an ensemble. The same guidelines apply to this model as mentioned above.
+
+Just the EfficientNet B3 model however already gave the same score as the multi-model ensemble. The model scored 0.9739 on the Public Board and 0.9393 on the Private Board. 
+
+With our submission we achieved a 47th place out of 2000+ participants.
+
+Use the final submission inference kernel and the provided model weights to try it out. To be able to train the model you need to first download the dataset as available for the [Kaggle competition](https://www.kaggle.com/c/bengaliai-cv19).
